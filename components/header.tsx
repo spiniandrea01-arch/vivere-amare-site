@@ -12,6 +12,7 @@ const navItems = [
   { label: "Home", href: "#" },
   { label: "Appartamento", href: "#appartamento" },
   { label: "Servizi", href: "#servizi" },
+  { name: "Tariffe", href: "#prezzi" },
   { label: "Galleria", href: "#galleria" },
   { label: "Posizione", href: "#posizione" },
   { label: "Contatti", href: "#prenota" },
