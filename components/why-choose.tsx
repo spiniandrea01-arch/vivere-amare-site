@@ -5,25 +5,25 @@ const reasons = [
     icon: Sun,
     title: "Vista Mare Mozzafiato",
     description:
-      "Svegliarsi ogni mattina con la vista del mare cristallino della Sardegna e del borgo storico di Castelsardo.",
+      "Goditi ogni giorno una vista aperta sul mare e sul borgo di Castelsardo, tra luce, silenzio e tramonti unici.",
   },
   {
     icon: Heart,
-    title: "Comfort & Relax",
+    title: "Comfort e Relax",
     description:
-      "Un appartamento moderno e confortevole, perfetto per una vacanza rilassante con tutti i servizi necessari.",
+      "Spazi curati e accoglienti, ideali per coppie e famiglie che cercano tranquillità e semplicità.",
   },
   {
     icon: MapPin,
-    title: "Posizione Strategica",
+    title: "Posizione Perfetta",
     description:
-      "A pochi minuti dal centro storico di Castelsardo e dalle spiagge più belle del nord Sardegna.",
+      "A pochi minuti dal centro storico e dalle spiagge più belle del nord Sardegna.",
   },
   {
     icon: Sparkles,
     title: "Esperienza Autentica",
     description:
-      "Vivi la vera Sardegna: mare, cultura, enogastronomia e tramonti indimenticabili.",
+      "Vivi la Sardegna vera: mare cristallino, cucina locale e atmosfere rilassanti.",
   },
 ];
 
@@ -33,10 +33,10 @@ export function WhyChoose() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <p className="text-accent text-sm tracking-[0.2em] uppercase mb-3 font-medium">
-            Perché sceglierci
+            Perché scegliere Vivere aMare
           </p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground text-balance">
-            La tua vacanza perfetta inizia qui
+            Un soggiorno semplice, ma speciale
           </h2>
         </div>
 
