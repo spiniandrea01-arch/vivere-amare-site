@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { MapPin, Clock, Car, Plane } from "lucide-react";
 
-const CASTELSARDO_IMAGE = "/images/Castelsardo1.jpg";
+const CASTELSARDO_IMAGE = "/images/Castelsardo1.jpeg";
 
 const distances = [
   { icon: MapPin, label: "Centro storico Castelsardo", distance: "5 min" },
