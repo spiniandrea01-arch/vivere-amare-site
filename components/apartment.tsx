@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Users, BedDouble, Bath, Eye } from "lucide-react";
 
 // Local images (in public/images/)
-const MAIN_IMAGE = "/images/soggiorno-vista-mare.jpg";
+const MAIN_IMAGE = "/images/soggiorno-divano.jpg";
 const BEDROOM_IMAGE = "/images/camera-1.jpg";
 const KITCHEN_IMAGE = "/images/cucina.jpg";
 
