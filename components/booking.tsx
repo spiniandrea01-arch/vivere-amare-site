@@ -7,7 +7,7 @@ const AIRBNB_URL = "https://www.airbnb.it/rooms/1652072955321878106";
 
 const benefits = [
   { icon: MessageCircle, text: "Risposta rapida su WhatsApp" },
-  { icon: Shield, text: "Prenotazione sicura e garantita" },
+  { icon: Shield, text: "Prenotazione sicura" },
   { icon: Clock, text: "Check-in flessibile" },
 ];
 
@@ -18,12 +18,14 @@ export function Booking() {
         <p className="text-accent text-sm tracking-[0.2em] uppercase mb-3 font-medium">
           Prenota Ora
         </p>
+
         <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-6 text-balance">
-          Prenota la tua vacanza da sogno
+          Verifica disponibilità e prezzi
         </h2>
+
         <p className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-          Contattaci direttamente su WhatsApp per le migliori tariffe e
-          disponibilità, oppure prenota comodamente su Airbnb.
+          Scrivimi direttamente su WhatsApp per un preventivo aggiornato,
+          oppure prenota tramite Airbnb.
         </p>
 
         {/* Benefits */}
@@ -50,6 +52,7 @@ export function Booking() {
               Scrivimi su WhatsApp
             </a>
           </Button>
+
           <Button
             asChild
             variant="outline"
@@ -62,11 +65,6 @@ export function Booking() {
             </a>
           </Button>
         </div>
-
-        {/* Trust badge */}
-        <p className="text-muted-foreground text-sm mt-8">
-          Più di 100 ospiti felici ci hanno già scelto
-        </p>
       </div>
     </section>
   );
