@@ -12,9 +12,9 @@ const navItems = [
   { label: "Home", href: "#" },
   { label: "Appartamento", href: "#appartamento" },
   { label: "Servizi", href: "#servizi" },
-  { label: "Tariffe", href: "#prezzi" },
   { label: "Galleria", href: "#galleria" },
   { label: "Posizione", href: "#posizione" },
+  { label: "Tariffe", href: "#prezzi" },
   { label: "Contatti", href: "#prenota" },
 ];
 
