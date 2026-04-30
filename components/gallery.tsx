@@ -8,13 +8,13 @@ import { Button } from "@/components/ui/button";
 
 // Local images (in public/images/)
 const images = [
-  { src: "/images/bagno.jpg", alt: "Soggiorno con vista mare" },
+  { src: "/images/bagno.jpg", alt: "Bagno" },
   { src: "/images/soggiorno-divano.jpg", alt: "Soggiorno con divano" },
   { src: "/images/cucina.jpg", alt: "Cucina attrezzata" },
   { src: "/images/tavolo-apparecchiato.jpg", alt: "Tavolo apparecchiato" },
   { src: "/images/camera-1.jpg", alt: "Camera da letto" },
   { src: "/images/camera-2.jpg", alt: "Camera - dettaglio" },
-  { src: "/images/bollitore.jpg", alt: "Bagno" },
+  { src: "/images/bollitore.jpg", alt: "Cucina - dettaglio" },
   { src: "/images/caffe.jpg", alt: "Angolo caffè" },
   { src: "/images/dettaglio-vivere-amare.jpg", alt: "Dettaglio Vivere aMare" },
 ];
