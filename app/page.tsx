@@ -1,5 +1,6 @@
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
+import { AirbnbCalendarSync } from "@/components/airbnb-calendar-sync";
 import { WhyChoose } from "@/components/why-choose";
 import { Apartment } from "@/components/apartment";
 import { Gallery } from "@/components/gallery";
@@ -57,8 +58,11 @@ export default function Home() {
     <main>
       <Header />
       <Hero />
+      <AirbnbCalendarSync />
+
       <WhyChoose />
       <Apartment />
+
       <Gallery />
       <Amenities />
       <Location />

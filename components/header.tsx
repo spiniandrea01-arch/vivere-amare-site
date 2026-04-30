@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, MessageCircle } from "lucide-react";
 
 const WHATSAPP_URL =
@@ -15,6 +15,7 @@ const navItems = [
   { label: "Galleria", href: "#galleria" },
   { label: "Posizione", href: "#posizione" },
   { label: "Tariffe", href: "#prezzi" },
+  { label: "Calendario", href: "#calendario" },
   { label: "Contatti", href: "#prenota" },
 ];
 
@@ -89,6 +90,7 @@ export function Header() {
             side="right"
             className="w-[300px] border-l border-border/60 bg-white/95 px-6"
           >
+            <SheetTitle className="sr-only">Menu di navigazione</SheetTitle>
             <div className="flex h-full flex-col items-center justify-center gap-8 text-center">
               <a href="#" className="font-serif text-3xl text-primary">
                 Vivere <span className="italic">aMare</span>
