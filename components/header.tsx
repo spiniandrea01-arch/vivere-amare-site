@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, MessageCircle } from "lucide-react";
 
 const WHATSAPP_URL =
@@ -15,6 +15,7 @@ const navItems = [
   { label: "Galleria", href: "#galleria" },
   { label: "Posizione", href: "#posizione" },
   { label: "Tariffe", href: "#prezzi" },
+  // { label: "Calendario", href: "#calendario" },
   { label: "Contatti", href: "#prenota" },
 ];
 
@@ -32,7 +33,7 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-[70] transition-all duration-300 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-sm py-3"
           : "bg-transparent py-5"
@@ -85,18 +86,22 @@ export function Header() {
               <span className="sr-only">Menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[300px] bg-white">
-            <div className="flex flex-col gap-6 mt-8">
-              <a href="#" className="font-serif text-2xl text-primary">
+          <SheetContent
+            side="right"
+            className="w-[300px] border-l border-border/60 bg-white/95 px-6"
+          >
+            <SheetTitle className="sr-only">Menu di navigazione</SheetTitle>
+            <div className="flex h-full flex-col items-center justify-center gap-8 text-center">
+              <a href="#" className="font-serif text-3xl text-primary">
                 Vivere <span className="italic">aMare</span>
               </a>
-              <nav className="flex flex-col gap-4">
+              <nav className="flex w-full max-w-[220px] flex-col gap-3">
                 {navItems.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-foreground text-lg py-2 border-b border-border hover:text-primary transition-colors"
+                    className="rounded-full border border-border bg-background px-4 py-2 text-base text-foreground transition-colors hover:border-primary/30 hover:text-primary"
                   >
                     {item.label}
                   </a>
@@ -104,14 +109,16 @@ export function Header() {
               </nav>
               <Button
                 asChild
-                className="bg-accent hover:bg-accent/90 text-white rounded-full mt-4 gap-2"
+                size="sm"
+                className="mt-2 h-9 rounded-full bg-accent px-4 text-sm text-white hover:bg-accent/90"
               >
                 <a
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <MessageCircle className="h-4 w-4" />
                   Prenota su WhatsApp
                 </a>
               </Button>

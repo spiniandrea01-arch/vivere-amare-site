@@ -2,19 +2,19 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Local images (in public/images/)
 const images = [
-  { src: "/images/bagno.jpg", alt: "Bagno" },
+  { src: "/images/camera-1.jpg", alt: "Vista mare" },
   { src: "/images/soggiorno-divano.jpg", alt: "Soggiorno con divano" },
   { src: "/images/cucina.jpg", alt: "Cucina attrezzata" },
-  { src: "/images/tavolo-apparecchiato.jpg", alt: "Camera da letto" },
-  { src: "/images/camera-1.jpg", alt: "Balcone con vista" },
+  { src: "/images/soggiorno-vista-mare.jpg", alt: "Bagno" }, 
   { src: "/images/camera-2.jpg", alt: "Camera - dettaglio" },
-  { src: "/images/bollitore.jpg", alt: "Cucina - dettaglio" },
+  { src: "/images/tavolo-apparecchiato.jpg", alt: "Camera da letto" },
+  { src: "/images/bagno.jpg", alt: "Cucina - dettaglio" },
   { src: "/images/caffe.jpg", alt: "Angolo caffè" },
   { src: "/images/dettaglio-vivere-amare.jpg", alt: "Dettaglio Vivere aMare" },
 ];
@@ -68,7 +68,7 @@ export function Gallery() {
                   src={image.src}
                   alt={image.alt}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+className="object-cover group-hover:scale-110 transition-transform duration-500 rounded-xl"
                   sizes={
                     index === 0
                       ? "(max-width: 768px) 100vw, 50vw"
@@ -83,14 +83,23 @@ export function Gallery() {
 
         {/* Lightbox */}
         <Dialog open={selectedIndex !== null} onOpenChange={closeLightbox}>
-          <DialogContent className="max-w-5xl w-full bg-black/95 border-none p-0">
-            <div className="relative aspect-[16/10] w-full">
+          <DialogContent
+            showCloseButton={false}
+            overlayClassName="bg-transparent backdrop-blur-md"
+            className="z-[80] max-w-5xl w-full overflow-hidden rounded-2xl bg-transparent border-none p-0 shadow-none"
+          >
+            <DialogTitle className="sr-only">
+              {selectedIndex !== null
+                ? `Foto ${selectedIndex + 1} di ${images.length}: ${images[selectedIndex].alt}`
+                : "Foto galleria"}
+            </DialogTitle>
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl">
               {selectedIndex !== null && (
                 <Image
                   src={images[selectedIndex].src}
                   alt={images[selectedIndex].alt}
                   fill
-                  className="object-contain"
+                  className="rounded-2xl object-contain"
                   sizes="100vw"
                 />
               )}
