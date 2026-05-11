@@ -58,7 +58,7 @@ export default function Home() {
     <main>
       <Header />
       <Hero />
-      <AirbnbCalendarSync />
+      {/* <AirbnbCalendarSync /> */}
 
       <WhyChoose />
       <Apartment />
