@@ -9,52 +9,58 @@ import {
   Key,
 } from "lucide-react";
 
-const amenities = [
-  { icon: Wifi, label: "Wi-Fi Alta Velocità" },
-  { icon: Tv, label: "Smart TV" },
-  { icon: Thermometer, label: "Aria Condizionata" },
-  { icon: WashingMachine, label: "Lavatrice" },
-  { icon: UtensilsCrossed, label: "Cucina Attrezzata" },
-  { icon: Coffee, label: "Macchina del Caffè" },
-  { icon: Waves, label: "Piscina Stagionale" },
-  { icon: Key, label: "Self Check-in" },
-];
+const icons = [
+  Wifi,
+  Tv,
+  Thermometer,
+  WashingMachine,
+  UtensilsCrossed,
+  Coffee,
+  Waves,
+  Key,
+] as const;
 
-export function Amenities() {
+type AmenitiesContent = {
+  eyebrow: string;
+  title: string;
+  items: ReadonlyArray<string>;
+  dishwasherNote: string;
+};
+
+export function Amenities({ content }: { content: AmenitiesContent }) {
   return (
-    <section id="servizi" className="py-20 md:py-28 bg-background">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <p className="text-accent text-sm tracking-[0.2em] uppercase mb-3 font-medium">
-            Servizi
+    <section id="servizi" className="bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="mb-16 text-center">
+          <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+            {content.eyebrow}
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground text-balance">
-            Tutto il necessario per la tua vacanza
+          <h2 className="text-balance text-3xl font-serif text-foreground md:text-4xl lg:text-5xl">
+            {content.title}
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-          {amenities.map((amenity, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center p-6 bg-secondary rounded-2xl hover:shadow-md transition-shadow group"
-            >
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <amenity.icon className="w-6 h-6 text-primary" />
+        <div className="mx-auto grid max-w-4xl grid-cols-2 gap-6 md:grid-cols-4">
+          {content.items.map((item, index) => {
+            const Icon = icons[index] ?? Key;
+
+            return (
+              <div
+                key={item}
+                className="group flex flex-col items-center rounded-2xl bg-secondary p-6 transition-shadow hover:shadow-md"
+              >
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-colors group-hover:bg-primary/20">
+                  <Icon className="h-6 w-6 text-primary" />
+                </div>
+                <span className="text-center text-sm font-medium text-foreground">{item}</span>
               </div>
-              <span className="text-foreground text-center font-medium text-sm">
-                {amenity.label}
-              </span>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Additional info */}
         <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 rounded-full">
-            <span className="text-primary text-sm">
-              Lavastoviglie inclusa in cucina
-            </span>
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-6 py-3">
+            <span className="text-sm text-primary">{content.dishwasherNote}</span>
           </div>
         </div>
       </div>

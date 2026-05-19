@@ -11,76 +11,78 @@ const socialLinks = [
     href: "https://www.facebook.com/profile.php?id=61578512951441",
     label: "Facebook",
   },
-];
+] as const;
 
 const contactInfo = [
-  { icon: Mail, text: "spiniandrea01@gmail.com", href: "mailto:spiniandrea01@gmail.com" },
+  {
+    icon: Mail,
+    text: "spiniandrea01@gmail.com",
+    href: "mailto:spiniandrea01@gmail.com",
+  },
   { icon: Phone, text: "+39 335 546 7680", href: "tel:+393355467680" },
-];
+] as const;
 
-export function Footer() {
+type FooterContent = {
+  description: string;
+  contactsTitle: string;
+  followTitle: string;
+  copyrightText: string;
+  cityText: string;
+};
+
+export function Footer({ content }: { content: FooterContent }) {
   return (
-    <footer className="bg-foreground text-white py-16">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
-          {/* Brand */}
+    <footer className="bg-foreground py-16 text-white">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="mb-12 grid gap-12 md:grid-cols-3">
           <div>
-            <h3 className="font-serif text-2xl mb-4">
+            <h3 className="mb-4 text-2xl font-serif">
               Vivere <span className="italic">aMare</span>
             </h3>
-            <p className="text-white/60 leading-relaxed">
-              Il tuo rifugio vista mare a Castelsardo, Sardegna. Dove ogni
-              risveglio profuma di vacanza.
-            </p>
+            <p className="leading-relaxed text-white/60">{content.description}</p>
           </div>
 
-          {/* Contact */}
           <div>
-            <h4 className="font-medium mb-4 text-white/80">Contatti</h4>
+            <h4 className="mb-4 font-medium text-white/80">{content.contactsTitle}</h4>
             <div className="space-y-3">
-              {contactInfo.map((contact, index) => (
+              {contactInfo.map((contact) => (
                 <a
-                  key={index}
+                  key={contact.text}
                   href={contact.href}
-                  className="flex items-center gap-3 text-white/60 hover:text-white transition-colors"
+                  className="flex items-center gap-3 text-white/60 transition-colors hover:text-white"
                 >
-                  <contact.icon className="w-4 h-4" />
+                  <contact.icon className="h-4 w-4" />
                   <span>{contact.text}</span>
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Social */}
           <div>
-            <h4 className="font-medium mb-4 text-white/80">Seguici</h4>
+            <h4 className="mb-4 font-medium text-white/80">{content.followTitle}</h4>
             <div className="flex gap-4">
-              {socialLinks.map((social, index) => (
+              {socialLinks.map((social) => (
                 <a
-                  key={index}
+                  key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-accent"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="h-5 w-5" />
                 </a>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-white/10 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-white/40 text-sm">
-              © {new Date().getFullYear()} Vivere aMare. Tutti i diritti
-              riservati.
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <p className="text-sm text-white/40">
+              {`(c) ${new Date().getFullYear()} Vivere aMare. ${content.copyrightText}`}
             </p>
-            <p className="text-white/40 text-sm">
-              Castelsardo, Sardegna, Italia
-            </p>
+            <p className="text-sm text-white/40">{content.cityText}</p>
           </div>
         </div>
       </div>
