@@ -1,7 +1,25 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { defaultLocale, hasLocale } from "@/lib/i18n/config";
 
+function getLocaleFromCountry(request: NextRequest): "it" | "en" | null {
+  const country =
+    request.headers.get("x-vercel-ip-country") ??
+    request.headers.get("cf-ipcountry") ??
+    request.headers.get("x-country-code");
+
+  if (!country) {
+    return null;
+  }
+
+  return country.toUpperCase() === "IT" ? "it" : "en";
+}
+
 function getPreferredLocale(request: NextRequest): "it" | "en" {
+  const countryLocale = getLocaleFromCountry(request);
+  if (countryLocale) {
+    return countryLocale;
+  }
+
   const header = request.headers.get("accept-language");
   if (!header) {
     return defaultLocale;
