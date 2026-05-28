@@ -1,72 +1,78 @@
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Home, Shield, Clock } from "lucide-react";
 
-const WHATSAPP_URL =
-  "https://wa.me/393355467680?text=Ciao%2C%20ho%20visto%20Vivere%20aMare%20e%20vorrei%20informazioni%20per%20prenotare";
-const AIRBNB_URL = "https://www.airbnb.it/rooms/1652072955321878106";
+const icons = [MessageCircle, Shield, Clock] as const;
 
-const benefits = [
-  { icon: MessageCircle, text: "Risposta rapida su WhatsApp" },
-  { icon: Shield, text: "Prenotazione sicura e garantita" },
-  { icon: Clock, text: "Check-in flessibile" },
-];
+type BookingContent = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  benefits: ReadonlyArray<string>;
+  whatsappCta: string;
+  airbnbCta: string;
+  trustBadge: string;
+};
 
-export function Booking() {
+export function Booking({
+  content,
+  whatsappUrl,
+  airbnbUrl,
+}: {
+  content: BookingContent;
+  whatsappUrl: string;
+  airbnbUrl: string;
+}) {
   return (
-    <section id="prenota" className="py-20 md:py-28 bg-secondary">
-      <div className="max-w-4xl mx-auto px-4 text-center">
-        <p className="text-accent text-sm tracking-[0.2em] uppercase mb-3 font-medium">
-          Prenota Ora
+    <section id="prenota" className="bg-secondary py-20 md:py-28">
+      <div className="mx-auto max-w-4xl px-4 text-center">
+        <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+          {content.eyebrow}
         </p>
-        <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-6 text-balance">
-          Prenota la tua vacanza da sogno
+        <h2 className="mb-6 text-balance text-3xl font-serif text-foreground md:text-4xl lg:text-5xl">
+          {content.title}
         </h2>
-        <p className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-          Contattaci direttamente su WhatsApp per le migliori tariffe e
-          disponibilità, oppure prenota comodamente su Airbnb.
+        <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          {content.description}
         </p>
 
-        {/* Benefits */}
-        <div className="flex flex-wrap justify-center gap-6 mb-10">
-          {benefits.map((benefit, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <benefit.icon className="w-5 h-5 text-primary" />
-              <span className="text-muted-foreground text-sm">
-                {benefit.text}
-              </span>
-            </div>
-          ))}
+        <div className="mb-10 flex flex-wrap justify-center gap-6">
+          {content.benefits.map((benefit, index) => {
+            const Icon = icons[index] ?? Clock;
+
+            return (
+              <div key={benefit} className="flex items-center gap-2">
+                <Icon className="h-5 w-5 text-primary" />
+                <span className="text-sm text-muted-foreground">{benefit}</span>
+              </div>
+            );
+          })}
         </div>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button
             asChild
             size="lg"
-            className="bg-accent hover:bg-accent/90 text-white px-10 py-7 text-lg gap-3 rounded-full shadow-lg hover:shadow-xl transition-all"
+            className="gap-3 rounded-full bg-accent px-10 py-7 text-lg text-white shadow-lg transition-all hover:bg-accent/90 hover:shadow-xl"
           >
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="w-6 h-6" />
-              Scrivimi su WhatsApp
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <MessageCircle className="h-6 w-6" />
+              {content.whatsappCta}
             </a>
           </Button>
           <Button
             asChild
             variant="outline"
             size="lg"
-            className="border-primary text-primary hover:bg-primary hover:text-white px-10 py-7 text-lg gap-3 rounded-full transition-all"
+            className="gap-3 rounded-full border-primary px-10 py-7 text-lg text-primary transition-all hover:bg-primary hover:text-white"
           >
-            <a href={AIRBNB_URL} target="_blank" rel="noopener noreferrer">
-              <Home className="w-6 h-6" />
-              Prenota su Airbnb
+            <a href={airbnbUrl} target="_blank" rel="noopener noreferrer">
+              <Home className="h-6 w-6" />
+              {content.airbnbCta}
             </a>
           </Button>
         </div>
 
-        {/* Trust badge */}
-        <p className="text-muted-foreground text-sm mt-8">
-          Oltre 100 ospiti soddisfatti hanno già scelto Vivere aMare
-        </p>
+        <p className="mt-8 text-sm text-muted-foreground">{content.trustBadge}</p>
       </div>
     </section>
   );

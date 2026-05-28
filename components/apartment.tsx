@@ -1,91 +1,88 @@
 import Image from "next/image";
 import { Users, BedDouble, Bath, Eye } from "lucide-react";
 
-// Local images (in public/images/)
 const MAIN_IMAGE = "/images/soggiorno-divano.jpg";
 const BEDROOM_IMAGE = "/images/camera-1.jpg";
 const KITCHEN_IMAGE = "/images/cucina.jpg";
 
-const features = [
-  { icon: Users, label: "4 Ospiti" },
-  { icon: BedDouble, label: "1 Camera, 2 Letti" },
-  { icon: Bath, label: "1 Bagno" },
-  { icon: Eye, label: "Vista Mare" },
-];
+const icons = [Users, BedDouble, Bath, Eye] as const;
 
-export function Apartment() {
+type ApartmentContent = {
+  eyebrow: string;
+  title: string;
+  descriptionOne: string;
+  descriptionTwo: string;
+  features: ReadonlyArray<string>;
+  mainImageAlt: string;
+  bedroomImageAlt: string;
+  kitchenImageAlt: string;
+};
+
+export function Apartment({ content }: { content: ApartmentContent }) {
   return (
-    <section id="appartamento" className="py-20 md:py-28 bg-background">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Images */}
+    <section id="appartamento" className="bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
-              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
                 <Image
                   src={MAIN_IMAGE}
-                  alt="Soggiorno con vista mare"
+                  alt={content.mainImageAlt}
                   fill
-                  className="object-cover hover:scale-105 transition-transform duration-500"
+                  className="object-cover transition-transform duration-500 hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
             </div>
-            <div className="relative aspect-square rounded-2xl overflow-hidden">
+            <div className="relative aspect-square overflow-hidden rounded-2xl">
               <Image
                 src={BEDROOM_IMAGE}
-                alt="Camera da letto"
+                alt={content.bedroomImageAlt}
                 fill
-                className="object-cover hover:scale-105 transition-transform duration-500"
+                className="object-cover transition-transform duration-500 hover:scale-105"
                 sizes="(max-width: 1024px) 50vw, 25vw"
               />
             </div>
-            <div className="relative aspect-square rounded-2xl overflow-hidden">
+            <div className="relative aspect-square overflow-hidden rounded-2xl">
               <Image
                 src={KITCHEN_IMAGE}
-                alt="Cucina attrezzata"
+                alt={content.kitchenImageAlt}
                 fill
-                className="object-cover hover:scale-105 transition-transform duration-500"
+                className="object-cover transition-transform duration-500 hover:scale-105"
                 sizes="(max-width: 1024px) 50vw, 25vw"
               />
             </div>
           </div>
 
-          {/* Content */}
           <div>
-            <p className="text-accent text-sm tracking-[0.2em] uppercase mb-3 font-medium">
-              L&apos;appartamento
+            <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+              {content.eyebrow}
             </p>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-6 text-balance">
-              Il tuo angolo di paradiso mediterraneo
+            <h2 className="mb-6 text-balance text-3xl font-serif text-foreground md:text-4xl lg:text-5xl">
+              {content.title}
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              Vivere aMare è un appartamento accogliente e curato nei dettagli, 
-              perfetto per coppie, famiglie e soggiorni rilassanti in Sardegna. 
-              Offre una splendida vista sul mare e sul borgo di Castelsardo.
+            <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
+              {content.descriptionOne}
             </p>
 
-            {/* Features grid */}
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-3 p-4 bg-secondary rounded-xl"
-                >
-                  <feature.icon className="w-5 h-5 text-primary" />
-                  <span className="text-foreground font-medium">
-                    {feature.label}
-                  </span>
-                </div>
-              ))}
+            <div className="mb-8 grid grid-cols-2 gap-4">
+              {content.features.map((feature, index) => {
+                const Icon = icons[index] ?? Eye;
+
+                return (
+                  <div
+                    key={feature}
+                    className="flex items-center gap-3 rounded-xl bg-secondary p-4"
+                  >
+                    <Icon className="h-5 w-5 text-primary" />
+                    <span className="font-medium text-foreground">{feature}</span>
+                  </div>
+                );
+              })}
             </div>
 
-            <p className="text-muted-foreground leading-relaxed">
-              L&apos;appartamento è dotato di tutti i comfort moderni: cucina
-              attrezzata con lavastoviglie e macchina del caffè, aria
-              condizionata, Smart TV, Wi-Fi ad alta velocità e lavatrice. Il
-              self check-in ti permette di arrivare in totale autonomia.
-            </p>
+            <p className="leading-relaxed text-muted-foreground">{content.descriptionTwo}</p>
           </div>
         </div>
       </div>

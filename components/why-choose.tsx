@@ -1,62 +1,45 @@
 import { Sun, Heart, MapPin, Sparkles } from "lucide-react";
 
-const reasons = [
-  {
-    icon: Sun,
-    title: "Vista Mare Mozzafiato",
-    description:
-      "Goditi ogni giorno una vista aperta sul mare e sul borgo di Castelsardo, tra luce, silenzio e tramonti unici.",
-  },
-  {
-    icon: Heart,
-    title: "Comfort e Relax",
-    description:
-      "Spazi curati e accoglienti, ideali per coppie e famiglie che cercano tranquillità e semplicità.",
-  },
-  {
-    icon: MapPin,
-    title: "Posizione Perfetta",
-    description:
-      "A pochi minuti dal centro storico e dalle spiagge più belle del nord Sardegna.",
-  },
-  {
-    icon: Sparkles,
-    title: "Esperienza Autentica",
-    description:
-      "Vivi la Sardegna vera: mare cristallino, cucina locale e atmosfere rilassanti.",
-  },
-];
+const icons = [Sun, Heart, MapPin, Sparkles] as const;
 
-export function WhyChoose() {
+type WhyChooseContent = {
+  eyebrow: string;
+  title: string;
+  reasons: ReadonlyArray<{ title: string; description: string }>;
+};
+
+export function WhyChoose({ content }: { content: WhyChooseContent }) {
   return (
-    <section className="py-20 md:py-28 bg-secondary">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <p className="text-accent text-sm tracking-[0.2em] uppercase mb-3 font-medium">
-            Perché scegliere Vivere aMare
+    <section className="bg-secondary py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="mb-16 text-center">
+          <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+            {content.eyebrow}
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground text-balance">
-            Un soggiorno semplice, ma speciale
+          <h2 className="text-balance text-3xl font-serif text-foreground md:text-4xl lg:text-5xl">
+            {content.title}
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {reasons.map((reason, index) => (
-            <div
-              key={index}
-              className="bg-card p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow text-center group"
-            >
-              <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
-                <reason.icon className="w-7 h-7 text-primary" />
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {content.reasons.map((reason, index) => {
+            const Icon = icons[index] ?? Sparkles;
+
+            return (
+              <div
+                key={reason.title}
+                className="group rounded-2xl bg-card p-8 text-center shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 transition-colors group-hover:bg-primary/20">
+                  <Icon className="h-7 w-7 text-primary" />
+                </div>
+                <h3 className="mb-3 text-xl font-serif text-foreground">{reason.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {reason.description}
+                </p>
               </div>
-              <h3 className="font-serif text-xl text-foreground mb-3">
-                {reason.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">
-                {reason.description}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
