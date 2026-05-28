@@ -3,6 +3,7 @@ import { Playfair_Display, Lato } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 import { notFound } from "next/navigation";
+import { LanguagePreferenceModal } from "@/components/language-preference-modal";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { hasLocale, locales } from "@/lib/i18n/config";
 import "../globals.css";
@@ -87,12 +88,18 @@ export default async function RootLayout({
     notFound();
   }
 
+  const dict = getDictionary(localeValue);
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
     <html lang={localeValue} className="bg-background">
       <body className={`${playfair.variable} ${lato.variable} font-sans antialiased`}>
         {children}
+        <LanguagePreferenceModal
+          locale={localeValue}
+          italianLabel={dict.header.italianLabel}
+          englishLabel={dict.header.englishLabel}
+        />
         {process.env.NODE_ENV === "production" && <Analytics />}
         {process.env.NODE_ENV === "production" && gaId && (
           <>

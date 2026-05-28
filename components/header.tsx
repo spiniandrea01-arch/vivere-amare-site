@@ -12,6 +12,8 @@ import {
 import { Menu, MessageCircle } from "lucide-react";
 import { type Locale } from "@/lib/i18n/config";
 
+const LOCALE_STORAGE_KEY = "preferred_locale";
+
 type HeaderContent = {
   navItems: ReadonlyArray<{ label: string; href: string }>;
   cta: string;
@@ -34,6 +36,10 @@ export function Header({
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  const persistLocalePreference = (selectedLocale: Locale) => {
+    localStorage.setItem(LOCALE_STORAGE_KEY, selectedLocale);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,6 +83,7 @@ export function Header({
           <div className="flex items-center gap-2" aria-label={content.languageAriaLabel}>
             <Link
               href="/it"
+              onClick={() => persistLocalePreference("it")}
               className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
                 locale === "it"
                   ? "bg-white text-primary"
@@ -89,6 +96,7 @@ export function Header({
             </Link>
             <Link
               href="/en"
+              onClick={() => persistLocalePreference("en")}
               className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
                 locale === "en"
                   ? "bg-white text-primary"
@@ -113,16 +121,44 @@ export function Header({
         </nav>
 
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild className="lg:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              className={isScrolled ? "text-foreground" : "text-white"}
+          <div className="flex items-center gap-2 lg:hidden" aria-label={content.languageAriaLabel}>
+            <Link
+              href="/it"
+              onClick={() => persistLocalePreference("it")}
+              className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
+                locale === "it"
+                  ? "bg-accent text-white"
+                  : isScrolled
+                    ? "text-foreground/70 hover:text-foreground"
+                    : "text-white/80 hover:text-white"
+              }`}
             >
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">{content.menuAriaLabel}</span>
-            </Button>
-          </SheetTrigger>
+              IT
+            </Link>
+            <Link
+              href="/en"
+              onClick={() => persistLocalePreference("en")}
+              className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
+                locale === "en"
+                  ? "bg-accent text-white"
+                  : isScrolled
+                    ? "text-foreground/70 hover:text-foreground"
+                    : "text-white/80 hover:text-white"
+              }`}
+            >
+              EN
+            </Link>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className={isScrolled ? "text-foreground" : "text-white"}
+              >
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">{content.menuAriaLabel}</span>
+              </Button>
+            </SheetTrigger>
+          </div>
           <SheetContent
             side="right"
             className="w-[300px] border-l border-border/60 bg-white/95 px-6"
@@ -144,30 +180,6 @@ export function Header({
                   </a>
                 ))}
               </nav>
-              <div className="flex items-center gap-3" aria-label={content.languageAriaLabel}>
-                <Link
-                  href="/it"
-                  onClick={() => setIsOpen(false)}
-                  className={`rounded-full border px-4 py-1.5 text-sm ${
-                    locale === "it"
-                      ? "border-primary bg-primary text-white"
-                      : "border-border text-foreground"
-                  }`}
-                >
-                  {content.italianLabel}
-                </Link>
-                <Link
-                  href="/en"
-                  onClick={() => setIsOpen(false)}
-                  className={`rounded-full border px-4 py-1.5 text-sm ${
-                    locale === "en"
-                      ? "border-primary bg-primary text-white"
-                      : "border-border text-foreground"
-                  }`}
-                >
-                  {content.englishLabel}
-                </Link>
-              </div>
               <Button
                 asChild
                 size="sm"
