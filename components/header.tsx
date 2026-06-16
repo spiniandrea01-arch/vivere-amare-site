@@ -12,8 +12,6 @@ import {
 import { Menu, MessageCircle } from "lucide-react";
 import { type Locale } from "@/lib/i18n/config";
 
-const LOCALE_STORAGE_KEY = "preferred_locale";
-
 type HeaderContent = {
   navItems: ReadonlyArray<{ label: string; href: string }>;
   cta: string;
@@ -36,10 +34,6 @@ export function Header({
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
-  const persistLocalePreference = (selectedLocale: Locale) => {
-    localStorage.setItem(LOCALE_STORAGE_KEY, selectedLocale);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,7 +77,6 @@ export function Header({
           <div className="flex items-center gap-2" aria-label={content.languageAriaLabel}>
             <Link
               href="/it"
-              onClick={() => persistLocalePreference("it")}
               className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
                 locale === "it"
                   ? "bg-white text-primary"
@@ -96,7 +89,6 @@ export function Header({
             </Link>
             <Link
               href="/en"
-              onClick={() => persistLocalePreference("en")}
               className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
                 locale === "en"
                   ? "bg-white text-primary"
@@ -124,7 +116,6 @@ export function Header({
           <div className="flex items-center gap-2 lg:hidden" aria-label={content.languageAriaLabel}>
             <Link
               href="/it"
-              onClick={() => persistLocalePreference("it")}
               className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
                 locale === "it"
                   ? "bg-accent text-white"
@@ -137,7 +128,6 @@ export function Header({
             </Link>
             <Link
               href="/en"
-              onClick={() => persistLocalePreference("en")}
               className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
                 locale === "en"
                   ? "bg-accent text-white"

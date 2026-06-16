@@ -1,4 +1,4 @@
-import { Instagram, Facebook, Mail, Phone } from "lucide-react";
+import { Instagram, Facebook, Mail, Phone, type LucideIcon } from "lucide-react";
 
 const socialLinks = [
   {
@@ -13,14 +13,22 @@ const socialLinks = [
   },
 ] as const;
 
-const contactInfo = [
+type ContactInfo = {
+  icon?: LucideIcon;
+  iconLabel?: string;
+  text: string;
+  href?: string;
+};
+
+const contactInfo: ContactInfo[] = [
   {
     icon: Mail,
     text: "spiniandrea01@gmail.com",
     href: "mailto:spiniandrea01@gmail.com",
   },
+  { iconLabel: "CIN", text: "IT090023C20000U1024" },
   { icon: Phone, text: "+39 335 546 7680", href: "tel:+393355467680" },
-] as const;
+];
 
 type FooterContent = {
   description: string;
@@ -45,16 +53,37 @@ export function Footer({ content }: { content: FooterContent }) {
           <div>
             <h4 className="mb-4 font-medium text-white/80">{content.contactsTitle}</h4>
             <div className="space-y-3">
-              {contactInfo.map((contact) => (
-                <a
-                  key={contact.text}
-                  href={contact.href}
-                  className="flex items-center gap-3 text-white/60 transition-colors hover:text-white"
-                >
-                  <contact.icon className="h-4 w-4" />
-                  <span>{contact.text}</span>
-                </a>
-              ))}
+              {contactInfo.map((contact) => {
+                const Icon = contact.icon;
+                const content = (
+                  <>
+                    {Icon ? (
+                      <Icon className="h-4 w-4 shrink-0" />
+                    ) : contact.iconLabel ? (
+                      <span className="w-8 shrink-0 text-xs font-semibold tracking-wide text-white/70">
+                        {contact.iconLabel}
+                      </span>
+                    ) : (
+                      <span className="h-4 w-4 shrink-0" />
+                    )}
+                    <span>{contact.text}</span>
+                  </>
+                );
+
+                return contact.href ? (
+                  <a
+                    key={contact.text}
+                    href={contact.href}
+                    className="flex items-center gap-3 text-white/60 transition-colors hover:text-white"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <div key={contact.text} className="flex items-center gap-3 text-white/60">
+                    {content}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
