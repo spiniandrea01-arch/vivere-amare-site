@@ -144,11 +144,11 @@ const dictionaries = {
         "Le tariffe possono variare in base al periodo e alla disponibilita. Scrivimi su WhatsApp per un preventivo aggiornato.",
       perNight: "a notte",
       items: [
-        { month: "Maggio", price: "50" },
-        { month: "Giugno", price: "80" },
-        { month: "Luglio", price: "100" },
-        { month: "Agosto", price: "130" },
-        { month: "Settembre", price: "70" },
+        { month: "Maggio", price: "70" },
+        { month: "Giugno", price: "85" },
+        { month: "Luglio", price: "110" },
+        { month: "Agosto", price: "140" },
+        { month: "Settembre", price: "75" },
       ],
     },
     booking: {
